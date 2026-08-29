@@ -1,54 +1,33 @@
 {
   "name": "@nkzw/remdx-private",
-  "version": "0.18.0",
+  "version": "20.0.0",
   "private": true,
+  "author": "Christoph Nakazawa <christoph.pojer@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/cpojer/remdx.git"
   },
-  "author": "Christoph Nakazawa <christoph.pojer@gmail.com>",
   "type": "module",
   "scripts": {
-    "build": "(cd ./packages/create-remdx && pnpm build) && (cd ./packages/remdx && pnpm build) && (cd ./packages/vite-plugin-remdx && pnpm build)",
-    "dev": "cd examples/tokyo && pnpm dev",
-    "dev:setup": "pnpm install",
-    "dev:update-deps": "rm -rf pnpm-lock.yaml node_modules/ **/node_modules && pnpm dev:setup",
-    "format": "prettier --experimental-cli --write .",
-    "lint": "eslint --cache .",
-    "lint:format": "prettier --experimental-cli --cache --check .",
-    "test": "npm-run-all --parallel tsc:check vitest:run lint lint:format",
-    "tsc:check": "tsc",
-    "vitest:run": "vitest run"
+    "build": "vp run create-remdx#build && vp run @nkzw/remdx#build && vp run @nkzw/vite-plugin-remdx#build",
+    "dev": "cd examples/tokyo && vp dev",
+    "dev:setup": "vp install",
+    "prepare": "vp config"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-typescript": "^7.27.1",
-    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
-    "@nkzw/eslint-config": "^3.2.0",
+    "@nkzw/eslint-plugin": "^2.0.0",
+    "@nkzw/oxlint-config": "^2.0.1",
     "@styled/typescript-styled-plugin": "^1.0.1",
-    "@swc/core": "^1.15.0",
-    "@types/node": "^24.10.0",
-    "eslint": "^9.39.1",
-    "nodemon": "^3.1.10",
-    "npm-run-all2": "^8.0.4",
-    "prettier": "^3.6.2",
-    "prettier-plugin-packagejson": "^2.5.19",
-    "ts-node": "^10.9.2",
-    "tsdown": "^0.16.0",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.0",
-    "vitest": "^4.0.7"
+    "@types/node": "^26.4.0",
+    "eslint": "^10.9.1",
+    "typescript": "^6.0.3",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   },
   "engines": {
-    "node": ">=18.7.0",
-    "pnpm": ">=7.9.1"
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.0"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@swc/core",
-      "unrs-resolver"
-    ],
-    "overrides": {
-      "shiki": "^0.11.0"
-    }
-  }
+  "packageManager": "pnpm@11.0.6"
 }

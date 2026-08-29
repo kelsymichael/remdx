@@ -7,12 +7,11 @@ export type SlideState = {
   stepIndex?: number | typeof GOTO_FINAL_STEP;
 };
 
-export function mapLocationToState(
-  location: Pick<Location, 'search'>,
-): SlideState {
+export function mapLocationToState(location: Pick<Location, 'search'>): SlideState {
   const { search } = location;
-  const { slideIndex: rawSlideIndex, stepIndex: rawStepIndex } =
-    Object.fromEntries(new URLSearchParams(search));
+  const { slideIndex: rawSlideIndex, stepIndex: rawStepIndex } = Object.fromEntries(
+    new URLSearchParams(search),
+  );
 
   const nextState: SlideState = {};
   if (rawSlideIndex === undefined) {
@@ -63,9 +62,7 @@ export default function useLocationSync({
   historyFactory = createBrowserHistory,
   setState,
 }: LocationStateOptions) {
-  const [history] = useState(() =>
-    typeof document !== 'undefined' ? historyFactory() : null,
-  );
+  const [history] = useState(() => (typeof document !== 'undefined' ? historyFactory() : null));
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
@@ -105,7 +102,7 @@ export default function useLocationSync({
           ...mapLocationToState(location),
           ...state,
         });
-        if (location.search != nextLocation.search) {
+        if (location.search !== nextLocation.search) {
           history.push(nextLocation);
         }
       },

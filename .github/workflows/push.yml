@@ -8,24 +8,13 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        node-version: [20]
-        test-suite: [check, vitest]
+        node-version: [24]
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: voidzero-dev/setup-vp@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.*
-      - run: pnpm dev:setup
-
-      - name: Run checks
-        run: pnpm tsc:check && pnpm lint && pnpm lint:format
-        if: matrix.test-suite == 'check'
-
-      - name: Run tests
-        run: pnpm vitest:run
-        if: matrix.test-suite == 'vitest'
+          cache: true
+          run-install: true
+      - run: vp run test:all
